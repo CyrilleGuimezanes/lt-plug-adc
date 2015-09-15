@@ -1,0 +1,395 @@
+
+package com.luditeam.cordova.plugin.ad.adcolony;
+
+import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.PluginResult;
+import org.apache.cordova.CallbackContext;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONException;
+import org.apache.cordova.CordovaInterface;
+import org.apache.cordova.CordovaWebView;
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.util.Log;
+//
+import com.jirbo.adcolony.*;
+import org.apache.cordova.PluginResult.Status;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.view.View;
+import java.util.Iterator;
+//md5
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+//Util
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.view.Surface;
+//
+import java.util.*;//Random
+//
+import java.util.HashMap;//HashMap
+import java.util.Map;//HashMap
+
+class Util {
+
+	//ex) Util.alert(cordova.getActivity(),"message");
+	public static void alert(Activity activity, String message) {
+		AlertDialog ad = new AlertDialog.Builder(activity).create();
+		ad.setCancelable(false); // This blocks the 'BACK' button
+		ad.setMessage(message);
+		ad.setButton("OK", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		ad.show();
+	}
+
+	//https://gitshell.com/lvxudong/A530_packages_app_Camera/blob/master/src/com/android/camera/Util.java
+	public static int getDisplayRotation(Activity activity) {
+	    int rotation = activity.getWindowManager().getDefaultDisplay()
+	            .getRotation();
+	    switch (rotation) {
+	        case Surface.ROTATION_0: return 0;
+	        case Surface.ROTATION_90: return 90;
+	        case Surface.ROTATION_180: return 180;
+	        case Surface.ROTATION_270: return 270;
+	    }
+	    return 0;
+	}
+
+}
+
+public class AdColonyPlugin extends CordovaPlugin {
+	private static final String LOG_TAG = "AdColonyPlugin";
+	private CallbackContext callbackContextKeepCallback;
+
+	protected String appId;
+	protected String fullScreenAdZoneId;
+	protected String rewardedVideoAdZoneId;
+
+    public void initialize(CordovaInterface cordova, CordovaWebView webView) {
+		super.initialize(cordova, webView);
+    }
+
+	//@Override
+	//public void onCreate(Bundle savedInstanceState) {//build error
+	//	super.onCreate(savedInstanceState);
+	//	//
+	//}
+
+	//@Override
+	//public void onStart() {//build error
+	//	super.onStart();
+	//	//
+	//}
+
+	@Override
+	public void onPause(boolean multitasking) {
+		super.onPause(multitasking);
+		AdColony.pause();
+	}
+
+	@Override
+	public void onResume(boolean multitasking) {
+		super.onResume(multitasking);
+		AdColony.resume(cordova.getActivity());
+	}
+
+	//@Override
+	//public void onStop() {//build error
+	//	super.onStop();
+	//	//
+	//}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		//
+	}
+
+	@Override
+	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+
+		if (action.equals("setUp")) {
+			setUp(action, args, callbackContext);
+
+			return true;
+		}
+		else if (action.equals("showFullScreenAd")) {
+			showFullScreenAd(action, args, callbackContext);
+
+			return true;
+		}
+		else if (action.equals("showRewardedVideoAd")) {
+			showRewardedVideoAd(action, args, callbackContext);
+
+			return true;
+		}
+
+		return false; // Returning false results in a "MethodNotFound" error.
+	}
+
+
+	private void setUp(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+		//Activity activity=cordova.getActivity();
+		//webView
+		//args.length()
+		//args.getString(0)
+		//args.getString(1)
+		//args.getInt(0)
+		//args.getInt(1)
+		//args.getBoolean(0)
+		//args.getBoolean(1)
+		//JSONObject json = args.optJSONObject(0);
+		//json.optString("adUnitBanner")
+		//json.optString("adUnitFullScreen")
+		//JSONObject inJson = json.optJSONObject("inJson");
+		//final String adUnitBanner = args.getString(0);
+		//final String adUnitFullScreen = args.getString(1);
+		//final boolean isOverlap = args.getBoolean(2);
+		//final boolean isTest = args.getBoolean(3);
+		//final String[] zoneIds = new String[args.getJSONArray(4).length()];
+		//for (int i = 0; i < args.getJSONArray(4).length(); i++) {
+		//	zoneIds[i] = args.getJSONArray(4).getString(i);
+		//}
+		//Log.d(LOG_TAG, String.format("%s", adUnitBanner));
+		//Log.d(LOG_TAG, String.format("%s", adUnitFullScreen));
+		//Log.d(LOG_TAG, String.format("%b", isOverlap));
+		//Log.d(LOG_TAG, String.format("%b", isTest));
+		final String appId = args.getString(0);
+		final String fullScreenAdZoneId = args.getString(1);
+		final String rewardedVideoAdZoneId = args.getString(2);
+		Log.d(LOG_TAG, String.format("%s", appId));
+		Log.d(LOG_TAG, String.format("%s", fullScreenAdZoneId));
+		Log.d(LOG_TAG, String.format("%s", rewardedVideoAdZoneId));
+
+		callbackContextKeepCallback = callbackContext;
+
+		cordova.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				_setUp(appId, fullScreenAdZoneId, rewardedVideoAdZoneId);
+			}
+		});
+	}
+
+	private void showFullScreenAd(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+
+		cordova.getActivity().runOnUiThread(new Runnable(){
+			@Override
+			public void run() {
+				_showFullScreenAd();
+			}
+		});
+	}
+
+	private void showRewardedVideoAd(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+
+		cordova.getActivity().runOnUiThread(new Runnable(){
+			@Override
+			public void run() {
+				_showRewardedVideoAd();
+			}
+		});
+	}
+
+
+
+	private void _setUp(String appId, String fullScreenAdZoneId, String rewardedVideoAdZoneId) {
+		this.appId = appId;
+		this.fullScreenAdZoneId = fullScreenAdZoneId;
+		this.rewardedVideoAdZoneId = rewardedVideoAdZoneId;
+
+
+		String optionString = "";
+		//version - arbitrary application version
+		//store   - google or amazon
+		//String optionString = "version:1.0,store:google";
+/*
+		try {
+			JSONObject options = args.getJSONObject(2);
+			String deviceId = options.getString("deviceId");
+			String customId = options.getString("customId");
+			if (deviceId != null)
+                AdColony.setDeviceID( deviceId );
+			if (customId != null)
+                AdColony.setCustomID( customId );
+			optionString = options.getString("optionString");
+		}
+		catch (JSONException exception) {
+			// Do nothing
+		}
+*/
+
+		String[] zoneIds = new String[2];
+		zoneIds[0] = this.fullScreenAdZoneId;
+		zoneIds[1] = this.rewardedVideoAdZoneId;
+
+		AdColony.configure(cordova.getActivity(), optionString, this.appId, zoneIds);
+		AdColony.addAdAvailabilityListener(new LtAdColonyAdAvailabilityListener());
+		AdColony.addV4VCListener(new LtAdColonyV4VCListener());
+	}
+
+	private void _showFullScreenAd() {
+
+		AdColonyVideoAd ad = new AdColonyVideoAd(fullScreenAdZoneId);
+		ad.withListener(new AdColonyAdListenerFullScreenAd());
+		ad.show();
+	}
+
+	private void _showRewardedVideoAd() {
+
+		AdColonyV4VCAd ad = new AdColonyV4VCAd(rewardedVideoAdZoneId);
+		ad.withListener(new AdColonyAdListenerRewardedVideoAd());
+		//ad.withConfirmationDialog().withResultsDialog();
+		ad.show();
+
+		//ad.getRewardName()
+		//ad.getAvailableViews()
+	}
+
+	class LtAdColonyAdAvailabilityListener implements AdColonyAdAvailabilityListener {
+		// Ad Availability Change Callback - update button text
+		public void onAdColonyAdAvailabilityChange(boolean available, String zone_id) {
+			Log.d(LOG_TAG, String.format("%s: %b", "onAdColonyAdAvailabilityChange", available));
+
+			if (available) {
+				if(zone_id.equals(fullScreenAdZoneId)) {
+					PluginResult pr = new PluginResult(PluginResult.Status.OK, "onFullScreenAdLoaded");
+					pr.setKeepCallback(true);
+					callbackContextKeepCallback.sendPluginResult(pr);
+					//PluginResult pr = new PluginResult(PluginResult.Status.ERROR);
+					//pr.setKeepCallback(true);
+					//callbackContextKeepCallback.sendPluginResult(pr);
+				}
+				else if(zone_id.equals(rewardedVideoAdZoneId)) {
+					PluginResult pr = new PluginResult(PluginResult.Status.OK, "onRewardedVideoAdLoaded");
+					pr.setKeepCallback(true);
+					callbackContextKeepCallback.sendPluginResult(pr);
+					//PluginResult pr = new PluginResult(PluginResult.Status.ERROR);
+					//pr.setKeepCallback(true);
+					//callbackContextKeepCallback.sendPluginResult(pr);
+				}
+			}
+		}
+	}
+
+	class LtAdColonyV4VCListener implements AdColonyV4VCListener {
+		// Reward Callback
+		public void onAdColonyV4VCReward(AdColonyV4VCReward reward) {
+			Log.d(LOG_TAG, String.format("%s: %b", "onAdColonyV4VCReward", reward.success()));
+
+			if (reward.success()) {
+				//reward.name();
+				//reward.amount();
+
+				PluginResult pr = new PluginResult(PluginResult.Status.OK, "onRewardedVideoAdCompleted");
+				pr.setKeepCallback(true);
+				callbackContextKeepCallback.sendPluginResult(pr);
+				//PluginResult pr = new PluginResult(PluginResult.Status.ERROR);
+				//pr.setKeepCallback(true);
+				//callbackContextKeepCallback.sendPluginResult(pr);
+			}
+		}
+	}
+
+	class AdColonyAdListenerFullScreenAd implements AdColonyAdListener {
+		// Ad Started Callback, called only when an ad successfully starts playing.
+		public void onAdColonyAdStarted( AdColonyAd ad ) {
+			Log.d(LOG_TAG, String.format("%s", "onAdColonyAdStarted"));
+
+			PluginResult pr = new PluginResult(PluginResult.Status.OK, "onFullScreenAdShown");
+			pr.setKeepCallback(true);
+			callbackContextKeepCallback.sendPluginResult(pr);
+			//PluginResult pr = new PluginResult(PluginResult.Status.ERROR);
+			//pr.setKeepCallback(true);
+			//callbackContextKeepCallback.sendPluginResult(pr);
+		}
+
+		//Ad Attempt Finished Callback - called at the end of any ad attempt - successful or not.
+		public void onAdColonyAdAttemptFinished(AdColonyAd ad) {
+			Log.d(LOG_TAG, String.format("%s", "onAdColonyAdAttemptFinished"));
+
+			// You can ping the AdColonyAd object here for more information:
+			// ad.shown() - returns true if the ad was successfully shown.
+			// ad.notShown() - returns true if the ad was not shown at all (i.e. if onAdColonyAdStarted was never triggered)
+			// ad.skipped() - returns true if the ad was skipped due to an interval play setting
+			// ad.canceled() - returns true if the ad was cancelled (either programmatically or by the user)
+			// ad.noFill() - returns true if the ad was not shown due to no ad fill.
+			if (ad.shown()) {
+				Log.d(LOG_TAG, String.format("%s", "onAdColonyAdAttemptFinished: shown"));
+
+				PluginResult pr = new PluginResult(PluginResult.Status.OK, "onFullScreenAdHidden");
+				pr.setKeepCallback(true);
+				callbackContextKeepCallback.sendPluginResult(pr);
+				//PluginResult pr = new PluginResult(PluginResult.Status.ERROR);
+				//pr.setKeepCallback(true);
+				//callbackContextKeepCallback.sendPluginResult(pr);
+			}
+			else if (ad.notShown()) {
+				Log.d(LOG_TAG, String.format("%s", "onAdColonyAdAttemptFinished: notShown"));
+			}
+			else if (ad.noFill()) {
+				Log.d(LOG_TAG, String.format("%s", "onAdColonyAdAttemptFinished: noFill"));
+			}
+			else if (ad.canceled()) {
+				Log.d(LOG_TAG, String.format("%s", "onAdColonyAdAttemptFinished: canceled"));
+			}
+			else {
+				Log.d(LOG_TAG, String.format("%s", "onAdColonyAdAttemptFinished: else"));
+			}
+		}
+	}
+
+	class AdColonyAdListenerRewardedVideoAd implements AdColonyAdListener {
+		// Ad Started Callback, called only when an ad successfully starts playing.
+		public void onAdColonyAdStarted( AdColonyAd ad ) {
+			Log.d(LOG_TAG, String.format("%s", "onAdColonyAdStarted"));
+
+			PluginResult pr = new PluginResult(PluginResult.Status.OK, "onRewardedVideoAdShown");
+			pr.setKeepCallback(true);
+			callbackContextKeepCallback.sendPluginResult(pr);
+			//PluginResult pr = new PluginResult(PluginResult.Status.ERROR);
+			//pr.setKeepCallback(true);
+			//callbackContextKeepCallback.sendPluginResult(pr);
+		}
+
+		//Ad Attempt Finished Callback - called at the end of any ad attempt - successful or not.
+		public void onAdColonyAdAttemptFinished(AdColonyAd ad) {
+			Log.d(LOG_TAG, String.format("%s", "onAdColonyAdAttemptFinished"));
+
+			// You can ping the AdColonyAd object here for more information:
+			// ad.shown() - returns true if the ad was successfully shown.
+			// ad.notShown() - returns true if the ad was not shown at all (i.e. if onAdColonyAdStarted was never triggered)
+			// ad.skipped() - returns true if the ad was skipped due to an interval play setting
+			// ad.canceled() - returns true if the ad was cancelled (either programmatically or by the user)
+			// ad.noFill() - returns true if the ad was not shown due to no ad fill.
+			if (ad.shown()) {
+				Log.d(LOG_TAG, String.format("%s", "onAdColonyAdAttemptFinished: shown"));
+
+				PluginResult pr = new PluginResult(PluginResult.Status.OK, "onRewardedVideoAdHidden");
+				pr.setKeepCallback(true);
+				callbackContextKeepCallback.sendPluginResult(pr);
+				//PluginResult pr = new PluginResult(PluginResult.Status.ERROR);
+				//pr.setKeepCallback(true);
+				//callbackContextKeepCallback.sendPluginResult(pr);
+			}
+			else if (ad.notShown()) {
+				Log.d(LOG_TAG, String.format("%s", "onAdColonyAdAttemptFinished: notShown"));
+			}
+			else if (ad.noFill()) {
+				Log.d(LOG_TAG, String.format("%s", "onAdColonyAdAttemptFinished: noFill"));
+			}
+			else if (ad.canceled()) {
+				Log.d(LOG_TAG, String.format("%s", "onAdColonyAdAttemptFinished: canceled"));
+			}
+			else {
+				Log.d(LOG_TAG, String.format("%s", "onAdColonyAdAttemptFinished: else"));
+			}
+		}
+	}
+}
