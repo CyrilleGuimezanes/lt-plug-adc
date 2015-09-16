@@ -9,10 +9,8 @@
     <author>Luditeam</author>
     <license>MIT</license>
     <keywords>cordova,plugin,ad,video,adcolony,monetisation</keywords>
-    <repo>https://github.com/luditeam/cordova-plugin-ad-adcolony</repo>
-    <issue>https://github.com/luditeam/cordova-plugin-ad-adcolony/issues</issue>
 	<engines>
-	    <engine name="cordova" version=">=3.0.0" />
+	    <engine name="cordova" version=">=3.5.0" />
 	</engines>
 
     <js-module src="www/adcolony.js">
