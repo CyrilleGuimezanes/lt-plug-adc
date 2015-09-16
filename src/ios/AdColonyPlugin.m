@@ -1,6 +1,5 @@
-//Copyright (c) 2014 Sang Ki Kwon (Cranberrygame)
-//Email: cranberrygame@yahoo.com
-//Homepage: http://cranberrygame.github.io
+//Copyright (c) 2015 Lduiteam 
+//Email: dev@Luditeam.com
 //License: MIT (http://opensource.org/licenses/MIT)
 #import "AdColonyPlugin.h"
 #import <objc/runtime.h>
