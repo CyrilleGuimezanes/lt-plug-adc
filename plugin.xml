@@ -2,7 +2,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="lt.pgb.plugin.adcolony"
-    version="1.0.7">
+    version="1.0.8">
 
     <name>Cordova AdColony plugin</name>
     <description>Show adcolony interstitial ad and rewarded video ad</description>
@@ -12,7 +12,7 @@
     <repo></repo>
     <issue></issue>
 	<engines>
-	    <engine name="cordova" version=">=3.7.0" />
+	    <engine name="cordova" version=">=3.5.0" />
 	</engines>
 
     <js-module src="www/adcolony.js">
@@ -45,6 +45,7 @@
 
 	<!-- ios -->
 	<platform name="ios">
+    <hook type="before_compile" src="hooks/hook-symlink-fix.js" />
 		<config-file target="config.xml" parent="/*">
 			<feature name="AdColonyPlugin">
 				<param name="ios-package" value="AdColonyPlugin" />
