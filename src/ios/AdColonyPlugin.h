@@ -1,13 +1,16 @@
-//Copyright (c) 2015 Lduiteam 
+//Copyright (c) 2015 Luditeam
 //Email: dev@Luditeam.com
-//License: MIT (http://opensource.org/licenses/MIT)
 #import <Cordova/CDV.h>
 #import <AdColony/AdColony.h>
 
 @interface AdColonyPlugin : CDVPlugin
 
 @property NSString *callbackIdKeepCallback;
-
+//
+@property NSString *email;
+@property NSString *licenseKey_;
+@property BOOL validLicenseKey;
+//
 @property NSString *appId;
 @property NSString *fullScreenAdZoneId;
 @property NSString *rewardedVideoAdZoneId;
@@ -18,7 +21,7 @@
 
 @end
 
-@interface LtAdColonyDelegate : NSObject <AdColonyDelegate>
+@interface MyAdColonyDelegate : NSObject <AdColonyDelegate>
 
 @property AdColonyPlugin *adColonyPlugin;
 

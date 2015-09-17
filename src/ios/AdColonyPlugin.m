@@ -1,6 +1,5 @@
-//Copyright (c) 2015 Lduiteam 
+//Copyright (c) 2015 Luditeam
 //Email: dev@Luditeam.com
-//License: MIT (http://opensource.org/licenses/MIT)
 #import "AdColonyPlugin.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
@@ -9,11 +8,20 @@
 @implementation AdColonyPlugin
 
 @synthesize callbackIdKeepCallback;
+//
+@synthesize email;
+@synthesize licenseKey_;
+@synthesize validLicenseKey;
 
+//
 @synthesize appId;
 @synthesize fullScreenAdZoneId;
 @synthesize rewardedVideoAdZoneId;
 
+- (void) pluginInitialize {
+    [super pluginInitialize];
+    //
+}
 
 
 - (void) setUp: (CDVInvokedUrlCommand*)command {
@@ -56,12 +64,23 @@
     }];
 }
 
+- (NSString*) md5:(NSString*) input {
+    const char *cStr = [input UTF8String];
+    unsigned char digest[16];
+    CC_MD5( cStr, strlen(cStr), digest ); // This is the md5 call
+
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+
+    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+        [output appendFormat:@"%02x", digest[i]];
+
+    return  output;
+}
 
 - (void) _setUp:(NSString *)appId aFullScreenAdZoneId:(NSString *)fullScreenAdZoneId aRewardedVideoAdZoneId:(NSString *)rewardedVideoAdZoneId {
 	self.appId = appId;
 	self.fullScreenAdZoneId = fullScreenAdZoneId;
 	self.rewardedVideoAdZoneId = rewardedVideoAdZoneId;
-
 
 	//
     BOOL debug = NO;
@@ -78,7 +97,7 @@
 	//+ ( void ) configureWithAppID:( NSString * )appID zoneIDs:( NSArray * )zoneIDs delegate:( id<AdColonyDelegate> )del logging:( BOOL )log;
 	[AdColony configureWithAppID:self.appId
 		zoneIDs:zoneIds
-		delegate:[[LtAdColonyDelegate alloc] initWithAdColonyPlugin:self]
+		delegate:[[MyAdColonyDelegate alloc] initWithAdColonyPlugin:self]
 		logging:debug
 	];
 }
@@ -107,7 +126,7 @@
 
 @end
 
-@implementation LtAdColonyDelegate
+@implementation MyAdColonyDelegate
 
 @synthesize adColonyPlugin;
 
