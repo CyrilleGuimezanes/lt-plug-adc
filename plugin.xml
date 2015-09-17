@@ -2,7 +2,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="lt.pgb.plugin.adcolony"
-    version="1.0.6">
+    version="1.0.7">
 
     <name>Cordova AdColony plugin</name>
     <description>Show adcolony interstitial ad and rewarded video ad</description>
@@ -12,7 +12,7 @@
     <repo></repo>
     <issue></issue>
 	<engines>
-	    <engine name="cordova" version=">=3.0.0" />
+	    <engine name="cordova" version=">=3.7.0" />
 	</engines>
 
     <js-module src="www/adcolony.js">
@@ -54,7 +54,7 @@
 		<header-file src="src/ios/AdColonyPlugin.h" />
 		<source-file src="src/ios/AdColonyPlugin.m" />
 
-		<framework src="src/ios/AdColony.framework" custom="true" type='projectReference'/>
+		<framework src="src/ios/AdColony.framework" custom="true"/>
 		<framework src="AudioToolbox.framework" weak="true" />
 		<framework src="AdSupport.framework" weak="true" />
 		<framework src="AVFoundation.framework"/>
