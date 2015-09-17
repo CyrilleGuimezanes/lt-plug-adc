@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    id="cordova-plugin-ad-adcolony"
+    id="lt.pgb.plugin.adcolony"
     version="1.0.4">
-	
+
     <name>Cordova AdColony plugin</name>
     <description>Show adcolony interstitial ad and rewarded video ad</description>
-    <author>Luditeam</author>	
+    <author>Luditeam</author>
     <license>MIT</license>
     <keywords>cordova,plugin,ad,video,adcolony,monetisation</keywords>
     <repo></repo>
-    <issue></issue>	
+    <issue></issue>
 	<engines>
 	    <engine name="cordova" version=">=3.0.0" />
 	</engines>
- 	
+
     <js-module src="www/adcolony.js">
         <clobbers target="window.adcolony" />
-    </js-module>    
-    
+    </js-module>
+
 	<!-- android -->
 	<platform name="android">
 		<config-file target="res/xml/config.xml" parent="/*">
@@ -39,7 +39,7 @@
 		</config-file>
 
 		<source-file src="src/android/AdColonyPlugin.java" target-dir="src/com/luditeam/cordova/plugin/ad/adcolony" />
-		
+
 		<source-file src="src/android/adcolony.jar" target-dir="libs" />
 	</platform>
 
