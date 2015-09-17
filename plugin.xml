@@ -54,7 +54,7 @@
 		<header-file src="src/ios/AdColonyPlugin.h" />
 		<source-file src="src/ios/AdColonyPlugin.m" />
 
-		<framework src="src/ios/AdColony.framework" custom="true"/>
+		<framework src="src/ios/AdColony.framework" custom="true" type='projectReference'/>
 		<framework src="AudioToolbox.framework" weak="true" />
 		<framework src="AdSupport.framework" weak="true" />
 		<framework src="AVFoundation.framework"/>

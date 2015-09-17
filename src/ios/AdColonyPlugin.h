@@ -1,7 +1,7 @@
 //Copyright (c) 2015 Luditeam
 //Email: dev@Luditeam.com
 #import <Cordova/CDV.h>
-#import "AdColony.framework/Versions/A/Headers/AdColony.h"
+#import <AdColony/AdColony.h>
 
 @interface AdColonyPlugin : CDVPlugin
 
