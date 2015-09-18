@@ -45,7 +45,7 @@
 
 	<!-- ios -->
 	<platform name="ios">
-    <hook type="before_compile" src="hooks/hook-symlink-fix.js" />
+			
 		<config-file target="config.xml" parent="/*">
 			<feature name="AdColonyPlugin">
 				<param name="ios-package" value="AdColonyPlugin" />
@@ -54,8 +54,8 @@
 
 		<header-file src="src/ios/AdColonyPlugin.h" />
 		<source-file src="src/ios/AdColonyPlugin.m" />
-
-		<framework src="src/ios/AdColony.framework" custom="true"/>
+		<dependency id="com.ios.adcolony" url="https://github.com/CyrilleGuimezanes/lt-sdk-adc"/>
+		
 
 	</platform>
 </plugin>
