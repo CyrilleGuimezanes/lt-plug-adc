@@ -2,7 +2,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="lt.pgb.plugin.adcolony"
-    version="1.0.9">
+    version="1.0.10">
 
     <name>Cordova AdColony plugin</name>
     <description>Show adcolony interstitial ad and rewarded video ad</description>
@@ -56,24 +56,6 @@
 		<source-file src="src/ios/AdColonyPlugin.m" />
 
 		<framework src="src/ios/AdColony.framework" custom="true"/>
-		<framework src="AudioToolbox.framework" weak="true" />
-		<framework src="AdSupport.framework" weak="true" />
-		<framework src="AVFoundation.framework"/>
-		<framework src="CFNetwork.framework"/>
-		<framework src="CoreGraphics.framework" />
-		<framework src="CoreMedia.framework" />
-		<framework src="CoreTelephony.framework" />
-		<framework src="EventKit.framework" />
-		<framework src="EventKitUI.framework"/>
-		<framework src="Foundation.framework" />
-		<framework src="libz.1.2.5.dylib" />
-		<framework src="MediaPlayer.framework" />
-		<framework src="MessageUI.framework" />
-		<framework src="QuartzCore.framework" />
-		<framework src="Social.framework" weak="true"/>
-		<framework src="StoreKit.framework"/>
-		<framework src="SystemConfiguration.framework" />
-		<framework src="UIKit.framework" />
-		<framework src="WebKit.framework" />
+
 	</platform>
 </plugin>
