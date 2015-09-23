@@ -313,7 +313,7 @@ public class AdColonyPlugin extends CordovaPlugin {
 			
 			if (reward.success()) {			
 								
-				PluginResult pr = new PluginResult(PluginResult.Status.OK, String.format("onRewardedVideoAdCompleted:%s:%d",reward.name(),reward.amount());
+				PluginResult pr = new PluginResult(PluginResult.Status.OK, String.format("onRewardedVideoAdCompleted:%s:%d",reward.name(),reward.amount()));
 				pr.setKeepCallback(true);
 				callbackContextKeepCallback.sendPluginResult(pr);
 				//PluginResult pr = new PluginResult(PluginResult.Status.ERROR);

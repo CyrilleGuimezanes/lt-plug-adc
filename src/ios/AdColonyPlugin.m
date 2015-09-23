@@ -165,7 +165,8 @@
 	NSLog(@"%@ %d", @"onAdColonyV4VCReward", success);
 
     if (success) {
-    	CDVPluginResult* pr = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[NSMutableString stringWithFormat:@"onRewardedVideoAdCompleted:%@:%d", currencyName, amount]];
+      NSString *newString = [NSString stringWithFormat:@"onRewardedVideoAdCompleted:%@:%d", currencyName, amount]
+    	CDVPluginResult* pr = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:newString];
 		[pr setKeepCallbackAsBool:YES];
 		[adColonyPlugin.commandDelegate sendPluginResult:pr callbackId:adColonyPlugin.callbackIdKeepCallback];
 		//CDVPluginResult* pr = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
