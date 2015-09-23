@@ -10,10 +10,12 @@ module.exports = {
         cordova.exec(
 			function (result) {
 				console.log('setUp succeeded.');
-				var parts = result? result.split(":") : [""];
-				result = parts[0];
+
 				if (typeof result == "string") {
-					//
+					var parts = result? result.split(":") : [""];
+
+					result = parts[0];
+					alert(result);
 					if (result == "onFullScreenAdLoaded") {
 						self._loadedFullScreenAd = true;
 
