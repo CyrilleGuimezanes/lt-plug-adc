@@ -10,7 +10,8 @@ module.exports = {
         cordova.exec(
 			function (result) {
 				console.log('setUp succeeded.');
-
+				var parts = result? result.split(":") : [""];
+				result = parts[0];
 				if (typeof result == "string") {
 					//
 					if (result == "onFullScreenAdLoaded") {
@@ -54,7 +55,7 @@ module.exports = {
 					}
 					else if (result == "onRewardedVideoAdCompleted") {
 						if (self.onRewardedVideoAdCompleted)
-							self.onRewardedVideoAdCompleted();
+							self.onRewardedVideoAdCompleted(parts[1],parts[2]);
 					}
 				}
 				else {
