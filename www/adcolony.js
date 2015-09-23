@@ -15,7 +15,6 @@ module.exports = {
 					var parts = result? result.split(":") : [""];
 
 					result = parts[0];
-					alert(result);
 					if (result == "onFullScreenAdLoaded") {
 						self._loadedFullScreenAd = true;
 
