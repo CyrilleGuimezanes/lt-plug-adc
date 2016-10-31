@@ -1,0 +1,35 @@
+{
+  "name": "lt-plug-adc",
+  "version": "2.0.0",
+  "description": "test",
+  "cordova": {
+    "id": "lt.plug.adc",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CyrilleGuimezanes/lt-plug-adc.git"
+  },
+  "keywords": [
+    "cordova",
+    "plugin",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.5.0"
+    }
+  ],
+  "author": "lt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CyrilleGuimezanes/lt-plug-adc/issues"
+  },
+  "homepage": "https://github.com/CyrilleGuimezanes/lt-plug-adc#readme"
+}

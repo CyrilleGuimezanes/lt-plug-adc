@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    id="lt.pgb.plugin.adcolony"
-    version="1.0.17">
+    id="lt.plug.adc"
+    version="2.0.0">
 
-    <name>Cordova AdColony plugin</name>
-    <description>Show adcolony interstitial ad and rewarded video ad</description>
+    <name>lt adc</name>
+    <description>test</description>
     <author>Luditeam</author>
     <license>MIT</license>
-    <keywords>cordova,plugin,ad,video,adcolony,monetisation</keywords>
+    <keywords></keywords>
     <repo></repo>
     <issue></issue>
 	<engines>
@@ -45,7 +45,7 @@
 
 	<!-- ios -->
 	<platform name="ios">
-			
+
 		<config-file target="config.xml" parent="/*">
 			<feature name="AdColonyPlugin">
 				<param name="ios-package" value="AdColonyPlugin" />
@@ -55,7 +55,7 @@
 		<header-file src="src/ios/AdColonyPlugin.h" />
 		<source-file src="src/ios/AdColonyPlugin.m" />
 		<dependency id="lt.pgb.sdk.adcolony" url="https://github.com/CyrilleGuimezanes/lt-sdk-adc"/>
-		
+
 
 	</platform>
 </plugin>
